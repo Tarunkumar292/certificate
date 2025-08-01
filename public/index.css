@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    padding:0px; 
+    margin:0px;
+    box-sizing:border-box;
+    font-family: "Monteserrat", sans-serif;
+}
+
+h1{
+    font-family: "Rubik Moonrocks", sans-serif;
+    text-align: center;
+    font-size:3rem;
+    margin: 30px 0px; 
+}
+
+#data-form{
+    width:fit-content;
+    margin: auto;
+    border:1px solid rgb(162, 228, 206);
+    border-radius: 5px;
+    background-color: rgba(228, 219, 219, 0.459);
+    padding:20px 32px;
+
+    margin-bottom: 40px;
+}
+
+#data-form > label{
+    display:block;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+#data-form > input{
+    border-radius: 10px;
+    font-size:1rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    margin-bottom: 32px;
+    &:focus{
+        outline:none;
+    }
+}
+
+#data-form > button{
+    display: block;
+    margin: auto;
+    padding: 10px 12px;
+    font-size:1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(162, 228, 206);
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(132, 204, 204);
+    }
+}
+
+#result{
+    padding:4px;
+    border:1px solid;
+    border-collapse: separate;
+    overflow:hidden;
+    border-radius:10px;
+    display: none;
+    margin:auto;
+    min-width: 500px;
+    text-align: center;
+}
+
+#result > thead{
+    border: 1px solid;
+}
+
+td, th{
+    padding:10px;
+    /* border-bottom:1px solid; */
+    border-collapse: collapse;
+    border-radius:10px;
+}
+
+#errorDiv{
+    font-size:2rem;
+    font-weight: 600;
+    display: none;
+    text-align: center;
+}
+
+#errorMessage{
+    font-size:1.3rem;
+    font-weight: 500;
+    color:red
+}

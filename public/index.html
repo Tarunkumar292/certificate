@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fetch Intern Data</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>Fetch User Info</h1>
+  <form id="data-form" onsubmit="handleFormSubmit(event)">
+      <label for="internId">Enter Intern Id:</label>
+      <input type="text" id="internId" placeholder="Enter Id"/>
+      <button onclick="fetchData()">Submit</button>
+  </form>
+
+  <table id="result">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Course</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="errorDiv">
+    OOPS!
+    <div id="errorMessage">
+
+    </div>
+  </div>
+  <script>
+    function handleFormSubmit(event){
+        console.log("Hello")
+        event.preventDefault();
+    }
+
+    const internId = document.getElementById('internId');
+    internId.addEventListener("input", (event)=>{
+        internId.value = internId.value.match(/\d+/);
+    })
+
+    let prevIdVal = null;
+    function fetchData() {
+      const internIdVal = internId.value; 
+      
+      if(internIdVal === prevIdVal){
+        return;
+      }
+      prevIdVal = internIdVal;
+      const resultTable = document.getElementById("result");
+      const errorDiv = document.getElementById("errorDiv");
+      fetch(`/intern?id=${encodeURIComponent(internIdVal)}`)
+        .then(response => {
+          if (!response.ok) {
+          // Throw error to go to .catch()
+          return response.json().then(err => {
+            throw new Error(err.error || "Unknown error");
+          });
+        }
+          return response.json()
+        })
+        .then(data => {
+          console.log(data);
+          // document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+
+          const tableData = document.querySelectorAll('tbody>tr>td');
+
+          tableData[0].textContent = data.id;
+          tableData[1].textContent = data.name;
+          tableData[2].textContent = data.course_name;
+          const formatted = new Date(data.joining_date).toLocaleDateString("en-GB"); // dd/mm/yyyy by default
+
+          tableData[3].textContent = formatted;
+
+          errorDiv.style.display = "none";
+         resultTable.style.display = "table";
+          // console.log(data.id, data.name);
+
+        })
+        .catch(err => {
+          console.error(err);
+          errorDiv.style.display = "block";
+          resultTable.style.display = "none";
+          const errorMessage =  document.getElementById("errorMessage");
+          errorMessage.textContent = err;
+        });
+    }
+  </script>
+</body>
+</html>
